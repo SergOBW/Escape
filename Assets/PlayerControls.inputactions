@@ -1,0 +1,34 @@
+{
+    "name": "PlayerControls",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "e0c5eeb6-c488-4479-a2b0-3ebdaf32fdbc",
+            "actions": [
+                {
+                    "name": "MoveAndLook",
+                    "type": "Value",
+                    "id": "d51ed749-e092-4596-b40d-cfbf9b5788c9",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "835b2a2d-9166-4d25-9007-eb090ef1b79c",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveAndLook",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
