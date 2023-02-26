@@ -1,22 +1,21 @@
-using System;
 using DefaultNamespace;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private GameInput _gameInput;
-    
+
     private Vector3 lastInteractDir;
     private bool _isWalking;
     private bool siMoveFormed;
 
     [SerializeField]
     private float moveSpeed = 7f;
-
     private void Update()
     {
         HandleMovement();
     }
+    
 
     private void HandleMovement()
     {

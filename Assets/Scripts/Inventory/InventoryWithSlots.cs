@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public enum InventoryType {
+    Player,
+    NotPlayer
+}
+
 namespace New.Player
 {
     public class InventoryWithSlots : IInventory
@@ -16,11 +21,11 @@ namespace New.Player
         
         public int capacity { get; set; }
         public bool isFull => _slots.All(slot => slot.isFull);
-        public string inventoryType { get; set; }
+        public InventoryType inventoryType { get; set; }
 
         private List<IInventorySlot> _slots;
 
-        public InventoryWithSlots(int capacity, string inventoryType)
+        public InventoryWithSlots(int capacity, InventoryType inventoryType)
         {
             this.capacity = capacity;
             this.inventoryType = inventoryType;
@@ -112,6 +117,7 @@ namespace New.Player
 
         public bool TryToAddToSlot(object sender, IInventorySlot slot, IInventoryItem item)
         {
+            Debug.Log("Item succesful added" + item.info.title);
             var fits = slot.amount + item.state.amount <= item.info.maxItemsInventorySlot;
             var amountToAdd = fits ? item.state.amount : item.info.maxItemsInventorySlot - slot.amount;
             //Debug.Log(amountToAdd + " AMOUNT TO ADD");
@@ -159,7 +165,7 @@ namespace New.Player
                 return;
             }
 
-            if (fromSlot.slotType == "Player" && toSlot.slotType != "Player")
+            if (fromSlot.slotType == InventoryType.Player && toSlot.slotType != InventoryType.Player)
             {
                 return;
             }

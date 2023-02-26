@@ -5,7 +5,7 @@ public interface IInventory
     int capacity { get; set; }
     bool isFull { get; }
     
-    string inventoryType { get; set; }
+    InventoryType inventoryType { get; }
 
     IInventoryItem GetItem(Type itemType);
     IInventoryItem[] GetAllItems();

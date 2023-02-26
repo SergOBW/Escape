@@ -11,7 +11,6 @@ namespace New.Player
         [SerializeField] private string _description;
         [SerializeField] private Sprite _spriteIcon;
         [SerializeField] private GameObject _prefab;
-        [SerializeField] private GameObject _probe;
         [SerializeField]private AnimatorOverrideController _overrideController;
 
         public string id { get => _id; }
@@ -20,8 +19,6 @@ namespace New.Player
         public string description { get => _description; }
         public Sprite spriteIcon { get => _spriteIcon; }
         public GameObject prefab { get => _prefab; }
-        public GameObject probe { get => _probe; }
-
         public AnimatorOverrideController overrideController
         {
             get => _overrideController;

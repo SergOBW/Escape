@@ -9,7 +9,7 @@ public interface IInventorySlot
     Type itemType { get; }
     int amount { get; }
     int capacity { get; }
-    string slotType { get; set; }
+    InventoryType slotType { get; set; }
 
     void SetItem(IInventoryItem item);
     void Clear();

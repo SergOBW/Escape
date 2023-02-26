@@ -1,15 +1,30 @@
-﻿using New.Player;
+using New.Player;
+using New.Player.Absctract;
+using New.Player.Detector;
+using UnityEngine;
 
-public static class PlayerInventory
+public class PlayerInventory : MonoBehaviour
 {
-    public static InventoryWithSlots inventoryWithSlots
-    { 
-        get;
-        private set;
+    private InventoryWithSlots _playerInventory;
+    [SerializeField]private int _capacity;
+    [SerializeField]private InventoryType inventoryType;
+    private Detector _detector;
+    
+    private void Start()
+    {
+        Initialize();
     }
 
-    public static void SetInventory(InventoryWithSlots inventory)
+    public void Initialize()
     {
-        inventoryWithSlots = inventory;
+        _playerInventory = new InventoryWithSlots(_capacity, inventoryType);
+        Debug.Log(_playerInventory.capacity);
+        _detector = GetComponentInChildren<Detector>();
+        _detector.OnInventoryItemPickedUp += OnInventoryItemPickedUp;
+    }
+
+    private void OnInventoryItemPickedUp(InventoryItemMono obj)
+    {
+        _playerInventory.TryToAdd(this, obj);
     }
 }

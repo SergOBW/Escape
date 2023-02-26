@@ -11,6 +11,5 @@ namespace New.Player.Absctract
         Sprite spriteIcon { get; }
         GameObject prefab { get; }
         
-        GameObject probe { get; }
     }
 }

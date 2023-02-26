@@ -10,7 +10,7 @@ namespace New.Player
         public Type itemType => item.type;
         public int amount => isEmpty ? 0 : item.state.amount;
         public int capacity { get; private set;}
-        public string slotType { get; set; }
+        public InventoryType slotType { get; set; }
         
         public void SetItem(IInventoryItem item)
         {
