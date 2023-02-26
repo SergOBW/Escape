@@ -8,7 +8,7 @@ public class PlayerInventory : MonoBehaviour
     private InventoryWithSlots _playerInventory;
     [SerializeField]private int _capacity;
     [SerializeField]private InventoryType inventoryType;
-    private Detector _detector;
+    private PlayerDetector _detector;
     
     private void Start()
     {
@@ -19,7 +19,7 @@ public class PlayerInventory : MonoBehaviour
     {
         _playerInventory = new InventoryWithSlots(_capacity, inventoryType);
         Debug.Log(_playerInventory.capacity);
-        _detector = GetComponentInChildren<Detector>();
+        _detector = GetComponentInChildren<PlayerDetector>();
         _detector.OnInventoryItemPickedUp += OnInventoryItemPickedUp;
     }
 

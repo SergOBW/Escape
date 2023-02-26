@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using New.Player.Absctract;
 using New.Player.Detector.Absctract;
 using UnityEngine;
 
@@ -12,13 +10,11 @@ namespace New.Player.Detector
         public event ObjectDetectedHandler OnGameObjectDetectedEvent;
         public event ObjectDetectedHandler OnGameObjectDetectionReleasedEvent;
 
-        public event Action<InventoryItemMono> OnInventoryItemPickedUp;
-
         public GameObject[] detectedObjects => detectedObjects.ToArray();
         
-        private List<GameObject> _detectedObjects = new List<GameObject>();
+        protected List<GameObject> _detectedObjects = new List<GameObject>();
 
-        public void Detect(IDetectableObject detectableObject)
+        public virtual void Detect(IDetectableObject detectableObject)
         {
             if (!_detectedObjects.Contains(detectableObject.gameObject))
             {
@@ -28,27 +24,7 @@ namespace New.Player.Detector
             }
         }
 
-        private void Update()
-        {
-            if (_detectedObjects.Count > 0)
-            {
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    if (_detectedObjects[0].TryGetComponent(out DetectableObject detectableObject))
-                    {
-                        if (detectableObject.HasInventoryItem(out InventoryItemMono inventoryItem))
-                        {
-                            OnInventoryItemPickedUp?.Invoke(inventoryItem);
-                            detectableObject.DestroySelf();
-                            _detectedObjects.RemoveAt(0);
-                            Debug.Log("Taked it");
-                        }
-                    }
-                }
-            }
-        }
-
-        public void Detect(GameObject detectedGameObject)
+        public virtual void Detect(GameObject detectedGameObject)
         {
             if (!_detectedObjects.Contains(detectedGameObject))
             {
@@ -58,7 +34,7 @@ namespace New.Player.Detector
             }
         }
 
-        public void ReleaseDetection(IDetectableObject detectableObject)
+        public virtual void ReleaseDetection(IDetectableObject detectableObject)
         {
             if (_detectedObjects.Contains(detectableObject.gameObject))
             {
@@ -68,7 +44,7 @@ namespace New.Player.Detector
             }
         }
 
-        public void ReleaseDetection(GameObject detectedGameObject)
+        public virtual void ReleaseDetection(GameObject detectedGameObject)
         {
             if (_detectedObjects.Contains(detectedGameObject))
             {
@@ -95,7 +71,7 @@ namespace New.Player.Detector
 
         private bool isColliderDetectableObject(Collider coll, out IDetectableObject detectedObject)
         {
-            detectedObject = coll.GetComponent<IDetectableObject>();
+            detectedObject = coll.GetComponentInChildren<IDetectableObject>();
 
             return detectedObject != null;
         }
