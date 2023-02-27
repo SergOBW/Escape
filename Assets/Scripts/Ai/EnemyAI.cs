@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using DefaultNamespace.Ai;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,44 +7,80 @@ public class EnemyAI : MonoBehaviour
     private NavMeshAgent _navMeshAgent;
     [SerializeField]private WalkPoint[] _pointsToMove;
     private Vector3 targetPos;
+    private Vector3 startPos;
     private EnemyDetector _detector;
-    private int walkPointIndex = 0;
-    private bool isReachTarget;
+    private int walkPointIndex;
+    private bool isWalkingRecursive;
 
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
-        _detector = GetComponentInChildren<EnemyDetector>();
+        _detector = GetComponent<EnemyDetector>();
         _detector.OnWalkPointReached += OnWalkPointReached;
+        walkPointIndex = 0;
     }
 
     private void Start()
     {
+        startPos = transform.position;
         targetPos = _pointsToMove[walkPointIndex].my_position;
-        StartCoroutine(FindNextTarget());
     }
 
-    private IEnumerator FindNextTarget()
+    private void FindNextTarget()
     {
-        yield return new WaitUntil(FindNextPos);
-        walkPointIndex++;
-        if (walkPointIndex <= _pointsToMove.Length -1)
+        var nextIndex = walkPointIndex + 1;
+        var arrayCount = _pointsToMove.Length - 1;
+        if (nextIndex < arrayCount)
         {
+            walkPointIndex++;
             targetPos = _pointsToMove[walkPointIndex].my_position;
-            StartCoroutine(FindNextTarget());
+        } else if (nextIndex == arrayCount)
+        {
+            walkPointIndex = nextIndex;
+            targetPos = _pointsToMove[walkPointIndex].my_position;
+            isWalkingRecursive = true;
+        }
+    }
+    
+    private void FindNextTargetRecursive()
+    {
+        var nextIndex = walkPointIndex - 1;
+        var arrayCount = 0;
+        if (nextIndex > arrayCount)
+        {
+            walkPointIndex--;
+            targetPos = _pointsToMove[walkPointIndex].my_position;
+        } else if (nextIndex == arrayCount)
+        {
+            walkPointIndex = nextIndex;
+            targetPos = _pointsToMove[walkPointIndex].my_position;
+            isWalkingRecursive = false;
         }
     }
 
     private void OnWalkPointReached(WalkPoint walkPoint)
     {
-        walkPoint.DestroySelf();
+        if (_pointsToMove.Length < 1)
+        {
+            Idle();
+            return;
+        }
+        switch (isWalkingRecursive)
+        {
+            case true:
+                FindNextTargetRecursive();
+                break;
+            case false:
+                FindNextTarget();
+                break;
+        }
+        
     }
 
-    private bool FindNextPos()
+    private void Idle()
     {
-        return isReachTarget;
+        targetPos = startPos;
     }
-    
     private void MoveToTarget(Vector3 targetPos)
     {
         _navMeshAgent.destination = targetPos;
@@ -54,14 +88,6 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-       MoveToTarget(targetPos);
-       if (_navMeshAgent.remainingDistance <= 0f)
-       {
-           isReachTarget = true;
-       }
-       else
-       {
-           isReachTarget = false;
-       }
+        MoveToTarget(targetPos);
     }
 }
