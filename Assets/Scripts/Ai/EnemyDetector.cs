@@ -1,6 +1,7 @@
 ﻿using System;
 using New.Player.Detector;
 using New.Player.Detector.Absctract;
+using UnityEngine;
 
 namespace DefaultNamespace.Ai
 {
@@ -10,6 +11,7 @@ namespace DefaultNamespace.Ai
         public event Action<Player> OnPlayerReached;
         public override void Detect(IDetectableObject detectableObject)
         {
+            Debug.Log(detectableObject);
             if (detectableObject.gameObject.TryGetComponent(out WalkPoint walkPoint))
             {
                 OnWalkPointReached?.Invoke(walkPoint);

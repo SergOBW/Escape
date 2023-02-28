@@ -32,8 +32,6 @@ public class DetectableObjectReactionColor : MonoBehaviour
 
     private void OnOnGameObjectDetected(GameObject sourse, GameObject detectedobject)
     {
-        Debug.Log(sourse.name);
-        Debug.Log(detectedobject.name);
         if (sourse.TryGetComponent(out PlayerDetector detector))
         {
             _outline.OutlineMode = Outline.Mode.OutlineAll;

@@ -8,22 +8,46 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]private WalkPoint[] _pointsToMove;
     private Vector3 targetPos;
     private Vector3 startPos;
+    private Vector3 lastWayPoint;
     private EnemyDetector _detector;
     private int walkPointIndex;
     private bool isWalkingRecursive;
+    private bool isFollowPlayer;
+    [SerializeField] private float walkStartSpeed = 3;
 
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _detector = GetComponent<EnemyDetector>();
         _detector.OnWalkPointReached += OnWalkPointReached;
+        _detector.OnPlayerReached += DetectorOnPlayerReached;
         walkPointIndex = 0;
+        _navMeshAgent.speed = walkStartSpeed;
     }
-
     private void Start()
     {
         startPos = transform.position;
         targetPos = _pointsToMove[walkPointIndex].my_position;
+    }
+    
+    private void Update()
+    {
+        HandleMovement();
+    }
+
+    private void SetDefaults()
+    {
+        isFollowPlayer = false;
+        _navMeshAgent.speed = walkStartSpeed;
+    }
+    
+    private void DetectorOnPlayerReached(Player obj)
+    {
+        float speedWhenPlayerReached = 1f;
+        _navMeshAgent.speed = speedWhenPlayerReached;
+        lastWayPoint = targetPos;
+        targetPos = obj.transform.position;
+        isFollowPlayer = true;
     }
 
     private void FindNextTarget()
@@ -41,6 +65,44 @@ public class EnemyAI : MonoBehaviour
             isWalkingRecursive = true;
         }
     }
+
+    private void HandleTarget()
+    {
+        if (_pointsToMove.Length < 1)
+        {
+            Idle();
+            return;
+        }
+        switch (isWalkingRecursive)
+        {
+            case true:
+                FindNextTargetRecursive();
+                break;
+            case false:
+                FindNextTarget();
+                break;
+        }
+    }
+
+    private void HandleMovement()
+    {
+        if (!isFollowPlayer)
+        {
+            MoveToTarget(targetPos);
+        }
+        else if (isFollowPlayer)
+        {
+            Debug.Log(_navMeshAgent.remainingDistance);
+            if (_navMeshAgent.remainingDistance < 1f)
+            {
+                targetPos = lastWayPoint;
+                SetDefaults();
+                Debug.Log("KillPlayer");
+            }
+            MoveToTarget(targetPos);
+        }
+    }
+    
     
     private void FindNextTargetRecursive()
     {
@@ -60,21 +122,7 @@ public class EnemyAI : MonoBehaviour
 
     private void OnWalkPointReached(WalkPoint walkPoint)
     {
-        if (_pointsToMove.Length < 1)
-        {
-            Idle();
-            return;
-        }
-        switch (isWalkingRecursive)
-        {
-            case true:
-                FindNextTargetRecursive();
-                break;
-            case false:
-                FindNextTarget();
-                break;
-        }
-        
+        HandleTarget();
     }
 
     private void Idle()
@@ -85,9 +133,5 @@ public class EnemyAI : MonoBehaviour
     {
         _navMeshAgent.destination = targetPos;
     }
-
-    private void Update()
-    {
-        MoveToTarget(targetPos);
-    }
+    
 }

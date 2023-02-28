@@ -1,7 +1,8 @@
 using DefaultNamespace;
+using New.Player.Detector.Absctract;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDetectableObject
 {
     [SerializeField] private GameInput _gameInput;
 
@@ -12,6 +13,21 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private float moveSpeed = 7f;
+
+    #region DetectableObject
+    public event ObjectDetectedHandler OnGameObjectDetectedEvent;
+    public event ObjectDetectedHandler OnGameObjectDetectionReleasedEvent;
+    public void Detected(GameObject detectionSourse)
+    {
+        OnGameObjectDetectedEvent?.Invoke(detectionSourse, gameObject);
+    }
+
+    public void DetectionReleased(GameObject detectionSourse)
+    {
+        OnGameObjectDetectionReleasedEvent?.Invoke(detectionSourse,gameObject);
+    }
+
+    #endregion
     private void FixedUpdate()
     {
         HandleMovement();
