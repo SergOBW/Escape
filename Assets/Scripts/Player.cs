@@ -8,10 +8,11 @@ public class Player : MonoBehaviour
     private Vector3 lastInteractDir;
     private bool _isWalking;
     private bool siMoveFormed;
+    [SerializeField]private CharacterController characterController;
 
     [SerializeField]
     private float moveSpeed = 7f;
-    private void Update()
+    private void FixedUpdate()
     {
         HandleMovement();
     }
@@ -19,17 +20,18 @@ public class Player : MonoBehaviour
 
     private void HandleMovement()
     {
-        Vector2 inputVector = _gameInput.GetMovementVectorNormalizedMove();
+        Vector2 inputVector = _gameInput.GetMovementVectorNormilized();
         Vector3 moveDir = transform.forward.normalized * inputVector.y;
 
-        float moveDistance = moveSpeed * Time.deltaTime;
+        float moveDistance = moveSpeed * Time.fixedDeltaTime;
         float playerRadius = 0.7f;
         float playerHeight = 2f;
-        bool canMove = !Physics.CapsuleCast(transform.position,transform.position + Vector3.up * playerHeight, playerRadius,moveDir, moveDistance);
+        //bool canMove = !Physics.CapsuleCast(transform.position,transform.position + Vector3.up * playerHeight, playerRadius,moveDir, moveDistance);
         
-        if (canMove && _gameInput.IsMoving())
+        if (_gameInput.IsMoving())
         {
-            transform.position += moveDir * moveDistance;
+            //transform.position += moveDir * moveDistance;
+            characterController.Move(moveDir * moveDistance);
         }
         
         //transform.forward = Vector3.Lerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
@@ -45,7 +47,7 @@ public class Player : MonoBehaviour
         {
             return;
         }
-        Vector2 inputVector = _gameInput.GetMovementVectorMove();
+        Vector2 inputVector = _gameInput.GetMoveVector();
         if (inputVector!= null)
         {
             Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);

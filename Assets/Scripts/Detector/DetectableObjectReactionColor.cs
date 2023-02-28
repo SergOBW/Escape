@@ -14,6 +14,7 @@ public class DetectableObjectReactionColor : MonoBehaviour
     {
         _detectableObject = GetComponent<IDetectableObject>();
         _outline = GetComponentInChildren<Outline>();
+        _outline.OutlineMode = Outline.Mode.OutlineHidden;
     }
     private void OnEnable()
     {
@@ -31,7 +32,12 @@ public class DetectableObjectReactionColor : MonoBehaviour
 
     private void OnOnGameObjectDetected(GameObject sourse, GameObject detectedobject)
     {
-        _outline.OutlineMode = Outline.Mode.OutlineAll;
+        Debug.Log(sourse.name);
+        Debug.Log(detectedobject.name);
+        if (sourse.TryGetComponent(out PlayerDetector detector))
+        {
+            _outline.OutlineMode = Outline.Mode.OutlineAll;
+        }
     }
 
     private void OnOnGameObjectDetectionReleased(GameObject sourse, GameObject detectedobject)

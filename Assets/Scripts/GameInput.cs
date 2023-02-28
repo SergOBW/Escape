@@ -6,6 +6,7 @@ namespace DefaultNamespace
     public class GameInput : MonoBehaviour
     {
         private PlayerControls _playerControls;
+        [SerializeField] private Joystick _dynamicJoystick;
         private void Awake()
         {
             _playerControls = new PlayerControls();
@@ -18,41 +19,30 @@ namespace DefaultNamespace
             return _playerControls;
         }
 
-        public Vector2 GetMovementVectorNormalizedMove()
+        public Vector2 GetMovementVectorNormilized()
         {
-            Vector2 inputVector = _playerControls.Player.Move.ReadValue<Vector2>();
+            var inputVector = GetMoveVector().normalized;
+            
+            return inputVector;
+        }
 
-            inputVector = inputVector.normalized;
+        public Vector2 GetMoveVector()
+        {
+            Vector2 inputVector = new Vector2(_dynamicJoystick.Horizontal,_dynamicJoystick.Vertical);
 
             return inputVector;
         }
         
-        public Vector2 GetMovementVectorNormalizedLook()
+        public Vector2 GetLookVector()
         {
-            Vector2 inputVector = _playerControls.Player.Look.ReadValue<Vector2>();
-
-            inputVector = inputVector.normalized;
-
-            return inputVector;
-        }
-        
-        public Vector2 GetMovementVectorMove()
-        {
-            Vector2 inputVector = _playerControls.Player.Move.ReadValue<Vector2>();
-
-            return inputVector;
-        }
-        
-        public Vector2 GetMovementVectorLook()
-        {
-            Vector2 inputVector = _playerControls.Player.Look.ReadValue<Vector2>();
+            Vector2 inputVector = new Vector2(_dynamicJoystick.Horizontal,_dynamicJoystick.Vertical);
 
             return inputVector;
         }
 
         public bool IsMoving()
         {
-            Vector2 inputVector = _playerControls.Player.Move.ReadValue<Vector2>();
+            Vector2 inputVector = new Vector2(_dynamicJoystick.Horizontal,_dynamicJoystick.Vertical);
             var value = Math.Abs(inputVector.x);
             if (value > 0)
             {

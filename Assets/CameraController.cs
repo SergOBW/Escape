@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
 
     private void Rotating()
     {
-        _rotationVelocity = _gameInput.GetMovementVectorLook().x * rotateSpeed * Time.deltaTime ;
+        _rotationVelocity = _gameInput.GetLookVector().x * rotateSpeed * Time.deltaTime ;
         player.transform.Rotate(Vector3.up * _rotationVelocity);
     }
 }
