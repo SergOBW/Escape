@@ -63,11 +63,11 @@ public class Player : MonoBehaviour, IDetectableObject
         {
             return;
         }
-        Vector2 inputVector = _gameInput.GetMoveVector();
+        Vector2 inputVector = _gameInput.GetMovementVectorNormilized();
         if (inputVector!= null)
         {
-            Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
-            Gizmos.DrawRay(transform.position,moveDir);
+            Vector3 moveDir = transform.forward.normalized * inputVector.y;
+            //Gizmos.DrawRay(transform.forward,moveDir);
         }
     }
     #endregion

@@ -1,6 +1,5 @@
 using New.Player;
 using New.Player.Absctract;
-using New.Player.Detector;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
@@ -9,6 +8,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField]private int _capacity;
     [SerializeField]private InventoryType inventoryType;
     private PlayerDetector _detector;
+    [SerializeField] private PlayerUi playerUi;
     
     private void Start()
     {
@@ -21,6 +21,12 @@ public class PlayerInventory : MonoBehaviour
         Debug.Log(_playerInventory.capacity);
         _detector = GetComponentInChildren<PlayerDetector>();
         _detector.OnInventoryItemPickedUp += OnInventoryItemPickedUp;
+        playerUi.OnItemTouched += PlayerUiOnItemTouched;
+    }
+
+    private void PlayerUiOnItemTouched(InventoryItemMono obj)
+    {
+        _playerInventory.TryToAdd(this, obj);
     }
 
     private void OnInventoryItemPickedUp(InventoryItemMono obj)

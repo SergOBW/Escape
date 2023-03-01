@@ -75,5 +75,10 @@ namespace New.Player.Detector
 
             return detectedObject != null;
         }
+
+        protected void RemoveFromList(IDetectableObject detectableObject)
+        {
+            _detectedObjects.Remove(detectableObject.gameObject);
+        }
     }
 }

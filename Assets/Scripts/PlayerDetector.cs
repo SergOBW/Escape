@@ -12,14 +12,18 @@ public class PlayerDetector : Detector
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (_detectedObjects[0].TryGetComponent(out DetectableObject detectableObject))
+                foreach (var detectedObject in _detectedObjects)
                 {
-                    if (detectableObject.HasInventoryItem(out InventoryItemMono inventoryItem))
+                    if (detectedObject.TryGetComponent(out DetectableObject detectableObject))
                     {
-                        OnInventoryItemPickedUp?.Invoke(inventoryItem);
-                        detectableObject.DestroySelf();
-                        _detectedObjects.RemoveAt(0);
-                        Debug.Log("Taked it");
+                        if (detectableObject.HasInventoryItem(out InventoryItemMono inventoryItem))
+                        {
+                            OnInventoryItemPickedUp?.Invoke(inventoryItem);
+                            RemoveFromList(detectableObject);
+                            detectableObject.DestroySelf();
+                            Debug.Log("Taked it");
+                            break;
+                        }
                     }
                 }
             }

@@ -1,12 +1,15 @@
+using System;
 using DefaultNamespace;
+using DefaultNamespace.Touchable;
+using New.Player.Absctract;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.OnScreen;
 
 public class PlayerUi : MonoBehaviour
 {
-    [SerializeField] private OnScreenStick _onScreenStick;
     [SerializeField] private GameInput _gameInput;
+
+    public event Action<InventoryItemMono> OnItemTouched;
 
     private InputAction touchPositionAction;
     private InputAction touchPressAction;
@@ -29,15 +32,21 @@ public class PlayerUi : MonoBehaviour
     private void TouchOnpPerformed(InputAction.CallbackContext obj)
     {
         var touchPosition = touchPositionAction.ReadValue<Vector2>();
-        ResetJoystickPostition(touchPosition);
+        Ray ray = Camera.main.ScreenPointToRay(touchPosition);
+        float interactDistance = 5f;
+        if (Physics.Raycast(ray,out RaycastHit raycastHit, interactDistance))
+        {
+            if (raycastHit.collider.TryGetComponent(out InventoryItemMono inventoryItemMono))
+            {
+                if (inventoryItemMono.TryGetComponent(out ITouchable touchable))
+                {
+                    OnItemTouched?.Invoke(inventoryItemMono);
+                    touchable.Interact();
+                }
+            }
+            
+            Debug.DrawLine(ray.origin,raycastHit.point,Color.red);
+        }
     }
-
-    private void ResetJoystickPostition(Vector2 touchPosition)
-    {
-        var newPosition = Camera.main.ScreenToWorldPoint(touchPosition);
-        newPosition.z = 0;
-        
-        Debug.Log(newPosition);
-        _onScreenStick.transform.position = newPosition;
-    }
+    
 }

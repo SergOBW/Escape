@@ -1,10 +1,12 @@
-﻿namespace New.Player.Absctract
+﻿using DefaultNamespace.Touchable;
+
+namespace New.Player.Absctract
 {
     using System;
     using New.Player;
     using UnityEngine;
 
-    public class InventoryItemMono : MonoBehaviour, IInventoryItem
+    public class InventoryItemMono : MonoBehaviour, IInventoryItem, ITouchable
     {
         [SerializeField] private InventoryItemInfo _inventoryItemInfoinfo;
         private InventoryItemState _inventoryItemState;
@@ -26,6 +28,11 @@
         private void Start()
         {
             _inventoryItemState = new InventoryItemState();
+        }
+
+        public void Interact()
+        {
+            Destroy(gameObject);
         }
     }
 }
