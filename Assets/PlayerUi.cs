@@ -33,18 +33,19 @@ public class PlayerUi : MonoBehaviour
     {
         var touchPosition = touchPositionAction.ReadValue<Vector2>();
         Ray ray = Camera.main.ScreenPointToRay(touchPosition);
-        float interactDistance = 5f;
+        float interactDistance = 2f;
         if (Physics.Raycast(ray,out RaycastHit raycastHit, interactDistance))
         {
-            if (raycastHit.collider.TryGetComponent(out InventoryItemMono inventoryItemMono))
+            
+            if (raycastHit.collider.TryGetComponent(out ITouchable touchable))
             {
-                if (inventoryItemMono.TryGetComponent(out ITouchable touchable))
+                if (raycastHit.collider.TryGetComponent(out InventoryItemMono inventoryItemMono))
                 {
                     OnItemTouched?.Invoke(inventoryItemMono);
-                    touchable.Interact();
                 }
+                touchable.Interact();
             }
-            
+
             Debug.DrawLine(ray.origin,raycastHit.point,Color.red);
         }
     }
