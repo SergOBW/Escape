@@ -24,7 +24,8 @@ public class WalkPoint : MonoBehaviour
 
     private void Awake()
     {
-        _myPosition =transform.position;
+        _myPosition = transform.position;
+        Debug.Log(_myPosition);
         wayPointStatus = WayPointStatus.None;
     }
     
