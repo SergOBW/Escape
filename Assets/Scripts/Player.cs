@@ -11,6 +11,11 @@ public class Player : MonoBehaviour, IDetectableObject
     private bool siMoveFormed;
     [SerializeField]private CharacterController characterController;
 
+    private void Start()
+    {
+        LevelManager.Inicialize();
+    }
+
     [SerializeField]
     private float moveSpeed = 7f;
 
@@ -32,7 +37,20 @@ public class Player : MonoBehaviour, IDetectableObject
     {
         HandleMovement();
     }
-    
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            LevelManager.Win();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            LevelManager.SetDefaults();
+        }
+    }
+
 
     private void HandleMovement()
     {

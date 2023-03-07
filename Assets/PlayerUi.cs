@@ -2,17 +2,25 @@ using System;
 using DefaultNamespace;
 using DefaultNamespace.Touchable;
 using New.Player.Absctract;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerUi : MonoBehaviour
 {
     [SerializeField] private GameInput _gameInput;
+    [SerializeField] private TMP_Text _levelText;
 
     public event Action<InventoryItemMono> OnItemTouched;
 
     private InputAction touchPositionAction;
     private InputAction touchPressAction;
+
+    private void Update()
+    {
+        _levelText.text = LevelManager.levels.ToString();
+    }
+
     private void Awake()
     {
         touchPositionAction = _gameInput.GetPlayerControls().FindAction("TouchPosition");
