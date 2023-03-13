@@ -1,4 +1,3 @@
-using System;
 using DefaultNamespace.PlayerStates;
 using UnityEngine;
 
@@ -8,8 +7,9 @@ public class GameUi : MonoBehaviour
     [SerializeField] private GameObject startUi;
     [SerializeField] private GameObject winUi;
     [SerializeField] private GameObject inGameUi;
+    [SerializeField] private PlayerUi playerUi;
 
-    private void Start()
+    private void Awake()
     {
         gameStateManager.OnGameStateChanged += OnGameStateChanged;
     }
@@ -35,6 +35,8 @@ public class GameUi : MonoBehaviour
             inGameUi.SetActive(true);
             winUi.SetActive(false);
             startUi.SetActive(false);
+            inGameUi.GetComponent<InGameUi>().Setup(GameManager.Instance.GetLevelGoal(),playerUi);
+            
         }
         
         if (obj.GetType() == typeof(GameWinState))
@@ -43,5 +45,10 @@ public class GameUi : MonoBehaviour
             winUi.SetActive(true);
             startUi.SetActive(false);
         }
+    }
+
+    public void StartGame()
+    {
+        gameStateManager.ChangeState(gameStateManager,new GamePlayingState(gameStateManager));
     }
 }

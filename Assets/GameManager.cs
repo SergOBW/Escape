@@ -1,18 +1,26 @@
+using DefaultNamespace;
+using DefaultNamespace.PlayerStates;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : AbstractSingleton<GameManager>
 {
     [SerializeField]private string wordGoal;
 
     public void Win()
     {
-        //State manager Win
         LevelManager.Win();
+        GameStateManager.Instance.ChangeState(this,new GameStartState(GameStateManager.Instance));
+        Debug.Log("Win");
     }
     
     public void Lose()
     {
-        //State manager Win
         LevelManager.Loose();
+        GameStateManager.Instance.ChangeState(this,new GameStartState(GameStateManager.Instance));
+    }
+
+    public string GetLevelGoal()
+    {
+        return wordGoal;
     }
 }

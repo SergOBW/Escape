@@ -34,7 +34,7 @@ public class EnemyAI : MonoBehaviour
         // first wayPoint
         targetWayPoint = _pointsToMove[walkPointIndex];
         targetPosition = targetWayPoint.my_position;
-        Debug.Log("Next targtet index = " + walkPointIndex + " Name " + targetWayPoint.transform.name + " Position " + targetPosition);
+        //Debug.Log("Next targtet index = " + walkPointIndex + " Name " + targetWayPoint.transform.name + " Position " + targetPosition);
     }
     
     private void Update()

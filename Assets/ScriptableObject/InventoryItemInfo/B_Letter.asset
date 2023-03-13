@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8130f70b74b64213982cbd0384bca547, type: 3}
-  m_Name: A_Letter
+  m_Name: B_Letter
   m_EditorClassIdentifier: 
   _id: 0
   _maxItemsInventorySlot: 1
-  _title: Letter A
-  _description: Letter A
+  _title: Letter B
+  _description: Letter B
   _spriteIcon: {fileID: 21300000, guid: 060211ce12a1a2540a5ec96a24d09843, type: 3}
   _prefab: {fileID: 3720558160081087343, guid: 0b17c3420d977fb418c169583fbe17e9, type: 3}
   _overrideController: {fileID: 0}
-  _letter: 65
+  _letter: 66

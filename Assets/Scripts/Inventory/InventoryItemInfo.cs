@@ -12,6 +12,7 @@ namespace New.Player
         [SerializeField] private Sprite _spriteIcon;
         [SerializeField] private GameObject _prefab;
         [SerializeField]private AnimatorOverrideController _overrideController;
+        [SerializeField] private char _letter;
 
         public string id { get => _id; }
         public int maxItemsInventorySlot { get => _maxItemsInventorySlot; }
@@ -19,6 +20,8 @@ namespace New.Player
         public string description { get => _description; }
         public Sprite spriteIcon { get => _spriteIcon; }
         public GameObject prefab { get => _prefab; }
+        public char letter { get => _letter; }
+
         public AnimatorOverrideController overrideController
         {
             get => _overrideController;

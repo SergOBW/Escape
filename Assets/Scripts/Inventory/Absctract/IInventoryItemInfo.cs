@@ -10,6 +10,6 @@ namespace New.Player.Absctract
         string description { get; }
         Sprite spriteIcon { get; }
         GameObject prefab { get; }
-        
+        char letter { get; }
     }
 }

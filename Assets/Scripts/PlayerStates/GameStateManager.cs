@@ -35,7 +35,7 @@ public class GameStateManager : AbstractSingleton<GameStateManager>
     {
         if (!CanChangeState(sender))
         {
-            Debug.LogWarning("Sender is not allowed to change state");
+            Debug.LogError("Sender is not allowed to change state");
             return;
         }
 
