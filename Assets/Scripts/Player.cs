@@ -1,4 +1,5 @@
 using DefaultNamespace;
+using DefaultNamespace.PlayerStates;
 using New.Player.Detector.Absctract;
 using UnityEngine;
 
@@ -10,12 +11,7 @@ public class Player : MonoBehaviour, IDetectableObject
     private bool _isWalking;
     private bool siMoveFormed;
     [SerializeField]private CharacterController characterController;
-
-    private void Start()
-    {
-        LevelManager.Inicialize();
-    }
-
+    
     [SerializeField]
     private float moveSpeed = 7f;
 
@@ -35,7 +31,10 @@ public class Player : MonoBehaviour, IDetectableObject
     #endregion
     private void FixedUpdate()
     {
-        HandleMovement();
+        if (GameStateManager.Instance.currentGameState.GetType() == typeof(GamePlayingState))
+        {
+            HandleMovement();
+        }
     }
 
     private void Update()
