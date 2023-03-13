@@ -31,7 +31,7 @@ public class PlayerUi : MonoBehaviour
     {
         touchPressAction.performed += TouchOnpPerformed;
     }
-    
+
     private void OnDisable()
     {
         touchPressAction.performed -= TouchOnpPerformed;
