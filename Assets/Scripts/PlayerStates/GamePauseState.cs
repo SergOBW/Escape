@@ -1,16 +1,18 @@
-﻿namespace DefaultNamespace.PlayerStates
+﻿using UnityEngine;
+
+namespace DefaultNamespace.PlayerStates
 {
     public class GamePauseState : IGameState
     {
         private GameStateManager gameStateManager;
         public void Enter()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Enter Pause State");
         }
 
         public void Exit()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Exit Pause State");
         }
 
         public void Update()

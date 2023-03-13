@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using DefaultNamespace;
 using DefaultNamespace.PlayerStates;
 using UnityEngine;
@@ -7,6 +9,7 @@ public class GameStateManager : AbstractSingleton<GameStateManager>
     private GameStartState gameStartState;
     private GamePauseState gamePauseState;
     private GamePlayingState gamePlayingState;
+    public event Action<IGameState> OnGameStateChanged;
 
     [SerializeField]private Behaviour[] allowedStateChangers;
     
@@ -44,6 +47,7 @@ public class GameStateManager : AbstractSingleton<GameStateManager>
 
         currentGameState = state;
         currentGameState.Enter();
+        OnGameStateChanged?.Invoke(currentGameState);
     }
 
     private bool CanChangeState(object sender)
@@ -58,13 +62,13 @@ public class GameStateManager : AbstractSingleton<GameStateManager>
             }
         }
 
-        if (sender.GetType() == typeof(IGameState))
+        if (sender.GetType().GetInterfaces().Contains(typeof(IGameState)))
         {
             isAllow = true;
             return isAllow;
         }
         
-        Debug.Log(sender.GetType());
+        Debug.Log(sender.GetType().GetInterfaces().Contains(typeof(IGameState)));
 
         return isAllow;
     }

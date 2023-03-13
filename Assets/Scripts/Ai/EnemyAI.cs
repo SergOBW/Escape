@@ -78,7 +78,7 @@ public class EnemyAI : MonoBehaviour
             isWalkingRecursive = true;
         }
         
-        Debug.Log("Next target index = " + walkPointIndex + " Name " + targetWayPoint.transform.name + " Position " + targetPosition);
+        //Debug.Log("Next target index = " + walkPointIndex + " Name " + targetWayPoint.transform.name + " Position " + targetPosition);
     }
     private void HandleTarget()
     {
@@ -116,7 +116,7 @@ public class EnemyAI : MonoBehaviour
                 targetPosition = lastWayPoint.transform.position;
                 SetDefaults();
             }
-            Debug.Log(_navMeshAgent.remainingDistance);
+            //Debug.Log(_navMeshAgent.remainingDistance);
         }
     }
     
@@ -136,7 +136,7 @@ public class EnemyAI : MonoBehaviour
             targetPosition = targetWayPoint.my_position;
             isWalkingRecursive = false;
         }
-        Debug.Log("Next Recursive target index = " + walkPointIndex + " Name " + targetWayPoint.transform.name + " Position " + targetPosition);
+        //Debug.Log("Next Recursive target index = " + walkPointIndex + " Name " + targetWayPoint.transform.name + " Position " + targetPosition);
     }
 
     private void Idle()

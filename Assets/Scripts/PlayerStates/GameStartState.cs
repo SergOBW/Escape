@@ -1,31 +1,36 @@
-﻿namespace DefaultNamespace.PlayerStates
+﻿using UnityEngine;
+
+namespace DefaultNamespace.PlayerStates
 {
     public class GameStartState : IGameState
     {
         private GameStateManager gameStateManager;
         public void Enter()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Entering the startState");
         }
 
         public void Exit()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Exit the startState");
         }
 
         public void Update()
         {
-            throw new System.NotImplementedException();
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                gameStateManager.ChangeState(this,new GamePlayingState(gameStateManager));
+            }
         }
 
         public void Win()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Lose()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public GameStartState(GameStateManager gameStateManager)

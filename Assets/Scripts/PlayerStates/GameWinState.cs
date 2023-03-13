@@ -2,38 +2,37 @@
 
 namespace DefaultNamespace.PlayerStates
 {
-    public class GamePlayingState : IGameState
+    public class GameWinState : IGameState
     {
-        public GameStateManager gameStateManager;
+        private GameStateManager gameStateManager;
         public void Enter()
         {
-            Debug.Log("Enter Playing State");
+            Debug.Log("Entering the gameWinState");
         }
 
         public void Exit()
         {
-            Debug.Log("Exit Playing State");
+            Debug.Log("Exit the gameWinState");
         }
 
         public void Update()
         {
             if (Input.GetKeyDown(KeyCode.N))
             {
-                gameStateManager.ChangeState(this,new GameWinState(gameStateManager));
+                gameStateManager.ChangeState(this,new GameStartState(gameStateManager));
             }
         }
 
         public void Win()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Lose()
         {
-            throw new System.NotImplementedException();
+            
         }
-
-        public GamePlayingState(GameStateManager gameStateManager)
+        public GameWinState(GameStateManager gameStateManager)
         {
             this.gameStateManager = gameStateManager;
         }
