@@ -16,16 +16,18 @@ public class PlayerInventory : MonoBehaviour
     {
         Initialize();
     }
-
-    private void Start()
-    {
-        GoalInitialize();
-    }
-
+    
     public void SetPlayerUi(PlayerUi playerUi)
     {
         _playerUi = playerUi;
         _playerUi.OnItemTouched += PlayerUiOnItemTouched;
+        GoalInitialize();
+    }
+    
+    public void RemovePlayerUi()
+    {
+        _playerUi.OnItemTouched -= PlayerUiOnItemTouched;
+        _playerUi = null;
     }
 
     private void Initialize()
@@ -33,7 +35,6 @@ public class PlayerInventory : MonoBehaviour
         _playerInventory = new InventoryWithSlots(_capacity, inventoryType);
         Debug.Log(_playerInventory.capacity);
         _detector = GetComponentInChildren<PlayerDetector>();
-        //_detector.OnInventoryItemPickedUp += OnInventoryItemPickedUp;
     }
 
     private void GoalInitialize()
@@ -50,11 +51,6 @@ public class PlayerInventory : MonoBehaviour
             {
                 itemGoal.Add(goalChar,1);
             }
-        }
-
-        foreach (var key in itemGoal)
-        {
-            Debug.Log("Key = " + key.Key + " Value = " + key.Value);
         }
     }
 
@@ -80,10 +76,5 @@ public class PlayerInventory : MonoBehaviour
         {
             GameManager.Instance.Win();
         }
-    }
-
-    private void OnInventoryItemPickedUp(InventoryItemMono obj)
-    {
-        _playerInventory.TryToAdd(this, obj);
     }
 }

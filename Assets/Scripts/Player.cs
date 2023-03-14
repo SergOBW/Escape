@@ -34,6 +34,11 @@ public class Player : MonoBehaviour, IDetectableObject
     {
         _gameInput = gameInput;
     }
+    
+    public void RemoveGameInput()
+    {
+        _gameInput = null;
+    }
     private void FixedUpdate()
     {
         if (GameStateManager.Instance.currentGameState.GetType() == typeof(GamePlayingState) && _gameInput != null)

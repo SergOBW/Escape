@@ -1,48 +1,45 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public static class LevelManager
 {
     public static int levels { get; private set; }
-    private const string LEVEL_NAME = "Level_";
     private const string LEVEL_INDEX = "Levels";
-    public static Scene currentScene { get; private set; }
-
     public static void SetDefaults()
     {
-        levels = 1;
+        levels = 0;
         PlayerPrefs.SetInt(LEVEL_INDEX,levels);
-        SceneManager.LoadScene(LEVEL_NAME + levels);
+        GameSetup.Instance.LoadLevel(levels);
     }
 
     public static void Inicialize()
     {
         levels = PlayerPrefs.GetInt(LEVEL_INDEX);
-        currentScene = SceneManager.GetActiveScene();
-        if (currentScene == SceneManager.GetSceneByName(LEVEL_NAME + levels))
-        {
-            return;
-        }
-        SceneManager.LoadScene(LEVEL_NAME + levels);
-        Debug.Log("Inicialize");
+        GameSetup.Instance.LoadLevel(levels);
+        Debug.Log("Inicialize level " + levels);
     }
     
     public static void Loose()
     {
-        currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.name);
+        Debug.LogWarning("You loose");
+        GameSetup.Instance.LoadLevel(levels);
     }
     
     public static void Restart()
     {
-        currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.name);
+        Debug.LogWarning("You restart");
+        GameSetup.Instance.LoadLevel(levels);
     }
     public static void Win()
     {
-        levels++;
-        SceneManager.LoadScene(LEVEL_NAME + levels);
-        currentScene = SceneManager.GetSceneByName(LEVEL_NAME + levels);
-        PlayerPrefs.SetInt(LEVEL_INDEX,levels);
+        if (levels + 1 <=  GameSetup.Instance.GetLevelCount())
+        {
+            levels++;
+            PlayerPrefs.SetInt(LEVEL_INDEX,levels);
+            GameSetup.Instance.LoadLevel(levels);
+        }
+        else
+        {
+            Debug.LogError("You have not create levels");
+        }
     }
 }

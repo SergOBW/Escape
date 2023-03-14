@@ -584,12 +584,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManagerPrefab: {fileID: 145617650103085833, guid: 675ddfeafe967264c9613ed96b62025e, type: 3}
-  roomGameObject: {fileID: 6302947727009402078, guid: 56b4a9a98c9b9a04d8b89e9a500fb527, type: 3}
+  roomGameObject:
+  - {fileID: 6302947727009402078, guid: 56b4a9a98c9b9a04d8b89e9a500fb527, type: 3}
+  - {fileID: 6302947727009402078, guid: 56b4a9a98c9b9a04d8b89e9a500fb527, type: 3}
+  - {fileID: 6302947727009402078, guid: 56b4a9a98c9b9a04d8b89e9a500fb527, type: 3}
   playerPrefab: {fileID: 5689557118800594285, guid: 8d1fe8582a0e59943937d5f6a694ab0d, type: 3}
   enemySetupPrefab: {fileID: 2446763636375053958, guid: 982fc9fb2b1a28441b9fd111c3b914fa, type: 3}
   gameUi: {fileID: 232138823}
   palayerUi: {fileID: 741864662}
-  gameInput: {fileID: 902937517}
+  gameInputPrefab: {fileID: 6475895414196936790, guid: 0e60ae973c03cad4e89c4b3fc8fd154f, type: 3}
   hasEnemy: 0
 --- !u!1 &1745700829 stripped
 GameObject:

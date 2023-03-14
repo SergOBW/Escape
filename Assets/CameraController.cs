@@ -17,6 +17,11 @@ public class CameraController : MonoBehaviour
     {
         _gameInput = gameInput;
     }
+    
+    public void RemoveGameInput()
+    {
+        _gameInput = null;
+    }
     private void LateUpdate()
     {
         if (_gameInput != null)
