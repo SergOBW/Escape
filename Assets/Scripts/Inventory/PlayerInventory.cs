@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using New.Player;
 using New.Player.Absctract;
@@ -10,7 +9,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField]private int _capacity;
     [SerializeField]private InventoryType inventoryType;
     private PlayerDetector _detector;
-    [SerializeField] private PlayerUi playerUi;
+    private PlayerUi _playerUi;
     private Dictionary<char, int> itemGoal;
 
     private void Awake()
@@ -23,13 +22,18 @@ public class PlayerInventory : MonoBehaviour
         GoalInitialize();
     }
 
-    public void Initialize()
+    public void SetPlayerUi(PlayerUi playerUi)
+    {
+        _playerUi = playerUi;
+        _playerUi.OnItemTouched += PlayerUiOnItemTouched;
+    }
+
+    private void Initialize()
     {
         _playerInventory = new InventoryWithSlots(_capacity, inventoryType);
         Debug.Log(_playerInventory.capacity);
         _detector = GetComponentInChildren<PlayerDetector>();
-        _detector.OnInventoryItemPickedUp += OnInventoryItemPickedUp;
-        playerUi.OnItemTouched += PlayerUiOnItemTouched;
+        //_detector.OnInventoryItemPickedUp += OnInventoryItemPickedUp;
     }
 
     private void GoalInitialize()

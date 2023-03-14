@@ -3,15 +3,19 @@ using UnityEngine;
 
 public class GameUi : MonoBehaviour
 {
-    [SerializeField] private GameStateManager gameStateManager;
     [SerializeField] private GameObject startUi;
     [SerializeField] private GameObject winUi;
     [SerializeField] private GameObject inGameUi;
-    [SerializeField] private PlayerUi playerUi;
+    private PlayerUi _playerUi;
 
     private void Awake()
     {
-        gameStateManager.OnGameStateChanged += OnGameStateChanged;
+        GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
+    }
+
+    public void SetPlayerUi(PlayerUi playerUi)
+    {
+        _playerUi = playerUi;
     }
 
     private void OnGameStateChanged(IGameState obj)
@@ -35,8 +39,15 @@ public class GameUi : MonoBehaviour
             inGameUi.SetActive(true);
             winUi.SetActive(false);
             startUi.SetActive(false);
-            inGameUi.GetComponent<InGameUi>().Setup(GameManager.Instance.GetLevelGoal(),playerUi);
-            
+            if (_playerUi != null)
+            {
+                inGameUi.GetComponent<InGameUi>().Setup(GameManager.Instance.GetLevelGoal(),_playerUi);
+            }
+            else
+            {
+                Debug.LogError("There is no playerUi");
+            }
+
         }
         
         if (obj.GetType() == typeof(GameWinState))
@@ -49,6 +60,8 @@ public class GameUi : MonoBehaviour
 
     public void StartGame()
     {
-        gameStateManager.ChangeState(gameStateManager,new GamePlayingState(gameStateManager));
+        var gameStateManager = GameStateManager.Instance;
+        //TODO: Sender is not approved - under is bullShit fix that
+        GameStateManager.Instance.ChangeState(gameStateManager,new GamePlayingState(gameStateManager));
     }
 }

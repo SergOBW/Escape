@@ -32,6 +32,12 @@ public static class LevelManager
         currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }
+    
+    public static void Restart()
+    {
+        currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
+    }
     public static void Win()
     {
         levels++;

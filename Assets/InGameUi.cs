@@ -27,7 +27,7 @@ public class InGameUi : MonoBehaviour
         {
             if (letterUi.m_letter == obj.info.letter)
             {
-                letterUi.SetActive(true);
+                letterUi.SetActive(true,obj.info.color);
                 letters.Remove(letterUi);
                 break;
             }

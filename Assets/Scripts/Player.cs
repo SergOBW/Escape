@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDetectableObject
 {
-    [SerializeField] private GameInput _gameInput;
-
     private Vector3 lastInteractDir;
     private bool _isWalking;
     private bool siMoveFormed;
@@ -14,6 +12,8 @@ public class Player : MonoBehaviour, IDetectableObject
     
     [SerializeField]
     private float moveSpeed = 7f;
+
+    private GameInput _gameInput;
 
     #region DetectableObject
     public event ObjectDetectedHandler OnGameObjectDetectedEvent;
@@ -29,9 +29,14 @@ public class Player : MonoBehaviour, IDetectableObject
     }
 
     #endregion
+
+    public void SetGameInput(GameInput gameInput)
+    {
+        _gameInput = gameInput;
+    }
     private void FixedUpdate()
     {
-        if (GameStateManager.Instance.currentGameState.GetType() == typeof(GamePlayingState))
+        if (GameStateManager.Instance.currentGameState.GetType() == typeof(GamePlayingState) && _gameInput != null)
         {
             HandleMovement();
         }

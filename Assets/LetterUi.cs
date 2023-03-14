@@ -7,22 +7,22 @@ public class LetterUi : MonoBehaviour
     public void Setup(char value)
     {
         GetComponent<Text>().text = value.ToString();
-        SetActive(false);
+        SetActive(false,new Color(0,0,0,0));
         m_letter = value;
     }
     
-    public void SetActive(bool flag)
+    public void SetActive(bool flag,Color color)
     {
         var text = GetComponent<Text>();
-        var color = text.color;
+        var nextColor = text.color;
         switch (flag)
         {
             case true:
-                color.a = 1f;
-                GetComponent<Text>().color = color;
+                nextColor = color;
+                GetComponent<Text>().color = nextColor;
                 break;
             case false:
-                GetComponent<Text>().color = color;
+                GetComponent<Text>().color = nextColor;
                 break;
         }
     }

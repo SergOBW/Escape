@@ -26,8 +26,14 @@ public class GameManager : AbstractSingleton<GameManager>
     
     public void Lose()
     {
-        LevelManager.Loose();
         GameStateManager.Instance.ChangeState(this,new GameStartState(GameStateManager.Instance));
+        LevelManager.Loose();
+    }
+    
+    public void Restart()
+    {
+        GameStateManager.Instance.ChangeState(this,new GameStartState(GameStateManager.Instance));
+        LevelManager.Restart();
     }
 
     public string GetLevelGoal()

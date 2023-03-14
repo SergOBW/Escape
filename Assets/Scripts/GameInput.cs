@@ -6,12 +6,17 @@ namespace DefaultNamespace
     public class GameInput : MonoBehaviour
     {
         private PlayerControls _playerControls;
-        [SerializeField] private Joystick _dynamicJoystick;
+        private Joystick _dynamicJoystick;
         private void Awake()
         {
             _playerControls = new PlayerControls();
 
             _playerControls.Player.Enable();
+        }
+
+        public void SetJoystick(Joystick joystick)
+        {
+            _dynamicJoystick = joystick;
         }
 
         public PlayerControls GetPlayerControls()

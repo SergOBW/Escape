@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerUi : MonoBehaviour
 {
-    [SerializeField] private GameInput _gameInput;
+    private GameInput _gameInput;
     [SerializeField] private TMP_Text _levelText;
 
     public event Action<InventoryItemMono> OnItemTouched;
@@ -16,22 +16,19 @@ public class PlayerUi : MonoBehaviour
     private InputAction touchPositionAction;
     private InputAction touchPressAction;
 
+    public void SetGameInput(GameInput gameInput)
+    {
+        _gameInput = gameInput;
+        touchPositionAction = _gameInput.GetPlayerControls().FindAction("TouchPosition");
+        touchPressAction = _gameInput.GetPlayerControls().FindAction("TouchPress");
+        touchPressAction.performed += TouchOnpPerformed;
+    }
+
     private void Update()
     {
         _levelText.text = LevelManager.levels.ToString();
     }
-
-    private void Awake()
-    {
-        touchPositionAction = _gameInput.GetPlayerControls().FindAction("TouchPosition");
-        touchPressAction = _gameInput.GetPlayerControls().FindAction("TouchPress");
-    }
-
-    private void OnEnable()
-    {
-        touchPressAction.performed += TouchOnpPerformed;
-    }
-
+    
     private void OnDisable()
     {
         touchPressAction.performed -= TouchOnpPerformed;

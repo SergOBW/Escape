@@ -8,24 +8,18 @@ namespace New.Player
         [SerializeField] private string _id;
         [SerializeField] private int _maxItemsInventorySlot;
         [SerializeField] private string _title;
-        [SerializeField] private string _description;
         [SerializeField] private Sprite _spriteIcon;
         [SerializeField] private GameObject _prefab;
-        [SerializeField]private AnimatorOverrideController _overrideController;
         [SerializeField] private char _letter;
+        [SerializeField] private Color _color;
 
         public string id { get => _id; }
         public int maxItemsInventorySlot { get => _maxItemsInventorySlot; }
         public string title { get => _title; }
-        public string description { get => _description; }
         public Sprite spriteIcon { get => _spriteIcon; }
         public GameObject prefab { get => _prefab; }
+        public Color color { get => _color; }
         public char letter { get => _letter; }
-
-        public AnimatorOverrideController overrideController
-        {
-            get => _overrideController;
-        }
     }
     
 }

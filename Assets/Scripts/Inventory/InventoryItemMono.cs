@@ -9,6 +9,7 @@ namespace New.Player.Absctract
     public class InventoryItemMono : MonoBehaviour, IInventoryItem, ITouchable
     {
         [SerializeField] private InventoryItemInfo _inventoryItemInfoinfo;
+        [SerializeField] private Transform slot;
         private InventoryItemState _inventoryItemState;
         public IInventoryItemInfo info { get => _inventoryItemInfoinfo; }
         public IInventoryItemState state { get => _inventoryItemState; }
@@ -28,6 +29,7 @@ namespace New.Player.Absctract
         private void Start()
         {
             _inventoryItemState = new InventoryItemState();
+            Instantiate(_inventoryItemInfoinfo.prefab, slot);
         }
 
         public void Interact()

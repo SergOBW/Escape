@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private GameInput _gameInput;
+    private GameInput _gameInput;
     [SerializeField] private Transform player;
     [SerializeField]
     private float rotateSpeed = 1.0f;
@@ -12,9 +12,17 @@ public class CameraController : MonoBehaviour
     private Transform orientation;
 
     private float yRotation;
+
+    public void SetGameInput(GameInput gameInput)
+    {
+        _gameInput = gameInput;
+    }
     private void LateUpdate()
     {
-        Rotating();
+        if (_gameInput != null)
+        {
+            Rotating();
+        }
     }
 
     private void Rotating()
