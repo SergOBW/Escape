@@ -14,35 +14,29 @@ public class GameSetup : AbstractSingleton<GameSetup>
     private GameObject currentPlayer;
     private GameInput gameInput;
     private PlayerUi playerUiScript;
+    private GameManager gameManager;
     
     public bool hasEnemy;
 
     private void Awake()
     {
-        Instantiate(gameManagerPrefab);
+        var go = Instantiate(gameManagerPrefab);
+        gameManager = go.GetComponent<GameManager>();
     }
 
     private void Start()
     {
-        SpawnAllGameObjects();
+        FirstInitialize();
     }
 
-    private void SpawnAllGameObjects()
+    private void FirstInitialize()
     {
-        currentLevel = Instantiate(roomGameObject[0]);
-        if (hasEnemy)
-        {
-            Instantiate(enemySetupPrefab);
-        }
         var playerUiGo = Instantiate(palayerUi);
         playerUiScript = playerUiGo.GetComponent<PlayerUi>();
         var gameInputGo = Instantiate(gameInputPrefab);
         gameInput = gameInputGo.GetComponent<GameInput>();
         playerUiScript.SetGameInput(gameInput);
         gameInput.SetJoystick(playerUiGo.GetComponentInChildren<FloatingJoystick>());
-        var spawnPoint = currentLevel.GetComponent<LevelPlayerSpawnPoint>().playerSpawnPoint;
-        currentPlayer = Instantiate(playerPrefab, spawnPoint.position,spawnPoint.rotation);
-        SetupPlayer();
         var _gameUi = Instantiate(gameUi);
         _gameUi.GetComponent<GameUi>().SetPlayerUi(playerUiScript);
     }
@@ -60,22 +54,42 @@ public class GameSetup : AbstractSingleton<GameSetup>
         currentPlayer.GetComponent<PlayerInventory>().RemovePlayerUi();
         currentPlayer.GetComponentInChildren<CameraController>().RemoveGameInput();
     }
-
+    
     public void LoadLevel(int index)
     {
+        // Secure check
+        Debug.Log("Loading " + index + " level");
+        Debug.Log("All " + roomGameObject.Length + " levels");
+        if (index >= roomGameObject.Length)
+        {
+            Debug.Log("No more levels");
+            LoadDefaultLevel();
+            return;
+        }
         if (currentLevel != null)
         {
             Destroy(currentLevel);
             if (currentPlayer != null)
             {
+                UnSetupPlayer();
                 Destroy(currentPlayer);
             }
         }
         currentLevel = Instantiate(roomGameObject[index]);
-        UnSetupPlayer();
+        gameManager.SetWordGoal(currentLevel.GetComponent<LevelPlayerSpawnPoint>().wordGoal);
+        if (hasEnemy)
+        {
+            Instantiate(enemySetupPrefab);
+        }
         var spawnPoint = currentLevel.GetComponent<LevelPlayerSpawnPoint>().playerSpawnPoint;
         currentPlayer = Instantiate(playerPrefab, spawnPoint.position,spawnPoint.rotation);
         SetupPlayer();
+    }
+
+    public void LoadDefaultLevel()
+    {
+        Debug.Log("load default");
+        LoadLevel(0);
     }
 
     public int GetLevelCount()

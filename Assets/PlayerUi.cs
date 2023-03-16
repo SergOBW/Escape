@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DefaultNamespace;
 using DefaultNamespace.Touchable;
 using New.Player.Absctract;
@@ -10,6 +11,7 @@ public class PlayerUi : MonoBehaviour
 {
     private GameInput _gameInput;
     [SerializeField] private TMP_Text _levelText;
+    private Dictionary<GameObject, bool> touchedDictionary;
 
     public event Action<InventoryItemMono> OnItemTouched;
 
@@ -22,18 +24,14 @@ public class PlayerUi : MonoBehaviour
         touchPositionAction = _gameInput.GetPlayerControls().FindAction("TouchPosition");
         touchPressAction = _gameInput.GetPlayerControls().FindAction("TouchPress");
         touchPressAction.performed += TouchOnpPerformed;
+        touchedDictionary = new Dictionary<GameObject, bool>();
     }
-
+    
     private void Update()
     {
         _levelText.text = LevelManager.levels.ToString();
     }
     
-    private void OnDisable()
-    {
-        touchPressAction.performed -= TouchOnpPerformed;
-    }
-
     private void TouchOnpPerformed(InputAction.CallbackContext obj)
     {
         var touchPosition = touchPositionAction.ReadValue<Vector2>();
@@ -41,17 +39,21 @@ public class PlayerUi : MonoBehaviour
         float interactDistance = 2f;
         if (Physics.Raycast(ray,out RaycastHit raycastHit, interactDistance))
         {
-            
-            if (raycastHit.collider.TryGetComponent(out ITouchable touchable))
+            if (raycastHit.collider.TryGetComponent(out ITouchable touchable) && !touchedDictionary.ContainsKey(raycastHit.collider.gameObject))
             {
                 if (raycastHit.collider.TryGetComponent(out InventoryItemMono inventoryItemMono))
                 {
                     OnItemTouched?.Invoke(inventoryItemMono);
                 }
                 touchable.Interact();
+                // Double touch secure for no duping
+                touchedDictionary.Add(raycastHit.collider.gameObject,true);
             }
 
-            Debug.DrawLine(ray.origin,raycastHit.point,Color.red);
+            if (touchedDictionary.ContainsKey(raycastHit.collider.gameObject))
+            {
+                Debug.LogWarning("Double touch secure for no duping");
+            }
         }
     }
     

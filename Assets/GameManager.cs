@@ -4,11 +4,29 @@ using UnityEngine;
 
 public class GameManager : AbstractSingleton<GameManager>
 {
-    [SerializeField]private string wordGoal;
+    private string wordGoal;
     
     private void Start()
     {
         LevelManager.Inicialize();
+    }
+    
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            LevelManager.Win();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            LevelManager.SetDefaults();
+        }
+    }
+
+    public void SetWordGoal(string newWordGoal)
+    {
+        wordGoal = newWordGoal;
     }
 
     public void Win()

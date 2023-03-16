@@ -17,6 +17,12 @@ public class GameUi : MonoBehaviour
     {
         _playerUi = playerUi;
     }
+    
+    public void UnSetPlayerUi()
+    {
+        _playerUi = null;
+        
+    }
 
     private void OnGameStateChanged(IGameState obj)
     {

@@ -15,6 +15,7 @@ public class PlayerInventory : MonoBehaviour
     private void Awake()
     {
         Initialize();
+        Debug.Log(" Player inventory awake" );
     }
     
     public void SetPlayerUi(PlayerUi playerUi)
@@ -33,7 +34,6 @@ public class PlayerInventory : MonoBehaviour
     private void Initialize()
     {
         _playerInventory = new InventoryWithSlots(_capacity, inventoryType);
-        Debug.Log(_playerInventory.capacity);
         _detector = GetComponentInChildren<PlayerDetector>();
     }
 

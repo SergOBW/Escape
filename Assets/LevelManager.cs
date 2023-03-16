@@ -31,15 +31,18 @@ public static class LevelManager
     }
     public static void Win()
     {
-        if (levels + 1 <=  GameSetup.Instance.GetLevelCount())
+        //TODO: Bull shit over there
+        
+        if (levels + 1 >=  GameSetup.Instance.GetLevelCount())
+        {
+            Debug.LogError("You have not create levels");
+            GameSetup.Instance.LoadDefaultLevel();
+        }
+        else
         {
             levels++;
             PlayerPrefs.SetInt(LEVEL_INDEX,levels);
             GameSetup.Instance.LoadLevel(levels);
-        }
-        else
-        {
-            Debug.LogError("You have not create levels");
         }
     }
 }

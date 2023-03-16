@@ -34,6 +34,7 @@ namespace New.Player.Absctract
 
         public void Interact()
         {
+            Debug.Log(gameObject.name + " Interact");
             Destroy(gameObject);
         }
     }

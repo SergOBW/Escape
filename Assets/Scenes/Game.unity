@@ -585,9 +585,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManagerPrefab: {fileID: 145617650103085833, guid: 675ddfeafe967264c9613ed96b62025e, type: 3}
   roomGameObject:
-  - {fileID: 6302947727009402078, guid: 56b4a9a98c9b9a04d8b89e9a500fb527, type: 3}
-  - {fileID: 6302947727009402078, guid: 56b4a9a98c9b9a04d8b89e9a500fb527, type: 3}
-  - {fileID: 6302947727009402078, guid: 56b4a9a98c9b9a04d8b89e9a500fb527, type: 3}
+  - {fileID: 8570011132629160763, guid: 5bbf9a23dc58c624d93812464377b922, type: 3}
+  - {fileID: 5096931928572564144, guid: 2402dc0827204604493e06c5032a20a3, type: 3}
+  - {fileID: 1464036576957222132, guid: 7f24764f29a762846ac1bd8daf0e5f72, type: 3}
   playerPrefab: {fileID: 5689557118800594285, guid: 8d1fe8582a0e59943937d5f6a694ab0d, type: 3}
   enemySetupPrefab: {fileID: 2446763636375053958, guid: 982fc9fb2b1a28441b9fd111c3b914fa, type: 3}
   gameUi: {fileID: 232138823}

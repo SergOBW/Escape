@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8130f70b74b64213982cbd0384bca547, type: 3}
+  m_Name: J_Letter
+  m_EditorClassIdentifier: 
+  _id: 0
+  _maxItemsInventorySlot: 1
+  _title: Letter O
+  _spriteIcon: {fileID: 21300000, guid: 060211ce12a1a2540a5ec96a24d09843, type: 3}
+  _prefab: {fileID: 8183669638816300259, guid: f0f12ec9772431a45a7b8d1d628cd9e0, type: 3}
+  _letter: 74
+  _color: {r: 0.85882354, g: 0.13333334, b: 0.51920664, a: 1}

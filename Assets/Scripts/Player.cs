@@ -46,21 +46,6 @@ public class Player : MonoBehaviour, IDetectableObject
             HandleMovement();
         }
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            LevelManager.Win();
-        }
-        
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            LevelManager.SetDefaults();
-        }
-    }
-
-
     private void HandleMovement()
     {
         Vector2 inputVector = _gameInput.GetMovementVectorNormilized();
