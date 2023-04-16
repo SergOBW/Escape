@@ -1,3 +1,4 @@
+using System;
 using DefaultNamespace;
 using DefaultNamespace.PlayerStates;
 using New.Player.Detector.Absctract;
@@ -30,6 +31,11 @@ public class Player : MonoBehaviour, IDetectableObject
 
     #endregion
 
+    private void Awake()
+    {
+        _gameInput = FindObjectOfType<GameInput>();
+    }
+
     public void SetGameInput(GameInput gameInput)
     {
         _gameInput = gameInput;
@@ -41,6 +47,13 @@ public class Player : MonoBehaviour, IDetectableObject
     }
     private void FixedUpdate()
     {
+        var debug = true;
+        if (debug)
+        {
+            HandleMovement();
+            return;
+        }
+        
         if (GameStateManager.Instance.currentGameState.GetType() == typeof(GamePlayingState) && _gameInput != null)
         {
             HandleMovement();

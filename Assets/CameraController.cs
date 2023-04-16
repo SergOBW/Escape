@@ -1,3 +1,4 @@
+using System;
 using DefaultNamespace;
 using UnityEngine;
 
@@ -12,6 +13,11 @@ public class CameraController : MonoBehaviour
     private Transform orientation;
 
     private float yRotation;
+
+    private void Awake()
+    {
+        _gameInput = FindObjectOfType<GameInput>();
+    }
 
     public void SetGameInput(GameInput gameInput)
     {

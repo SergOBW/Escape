@@ -51,7 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a53747c3587fc24f93e59c4ecc7c157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameInput: {fileID: 0}
   characterController: {fileID: 1622516954}
   moveSpeed: 5
 --- !u!114 &5689557118800594284
@@ -68,7 +67,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _capacity: 10
   inventoryType: 0
-  playerUi: {fileID: 0}
 --- !u!54 &1402355481
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -452,7 +450,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95257ab5c95fae543a37a80b2d350f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameInput: {fileID: 0}
   player: {fileID: 5689557118800594282}
   rotateSpeed: 100
 --- !u!1 &5689557120223782704

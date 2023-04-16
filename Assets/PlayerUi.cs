@@ -18,6 +18,12 @@ public class PlayerUi : MonoBehaviour
     private InputAction touchPositionAction;
     private InputAction touchPressAction;
 
+    private void Awake()
+    {
+        _gameInput = FindObjectOfType<GameInput>();
+        SetGameInput(_gameInput);
+    }
+
     public void SetGameInput(GameInput gameInput)
     {
         _gameInput = gameInput;

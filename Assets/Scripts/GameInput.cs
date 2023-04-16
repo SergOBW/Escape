@@ -12,7 +12,10 @@ namespace DefaultNamespace
             _playerControls = new PlayerControls();
 
             _playerControls.Player.Enable();
+
+            _dynamicJoystick = FindObjectOfType<Joystick>();
         }
+        
 
         public void SetJoystick(Joystick joystick)
         {
